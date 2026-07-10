@@ -1,0 +1,15 @@
+<h1>Jobs</h1>
+
+<ul>
+{% for application in applications %}
+    <li>
+        {{ application.company_name }} - {{ application.job_title }}
+        <br>
+        Status: {{ application.get_status_display }}
+        <br>
+        Bewerbungsdatum: {{ application.application_date|default:"-" }}
+    </li>
+{% empty %}
+    <li>No job now.</li>
+{% endfor %}
+</ul>
