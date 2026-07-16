@@ -8,6 +8,8 @@
         Status: {{ application.get_status_display }}
         <br>
         Bewerbungsdatum: {{ application.application_date|default:"-" }}
+        <br>
+        <a href="{% url 'application_create' %}">Neue Bewerbung anlegen</a>
     </li>
 {% empty %}
     <li>No job now.</li>
