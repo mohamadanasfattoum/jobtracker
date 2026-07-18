@@ -22,3 +22,9 @@ class JobApplicationUpdateView(generic.UpdateView):
     form_class = JobApplicationForm
     template_name = "JobApplication/jobapplication_form.html"
     success_url = reverse_lazy('application_list')
+
+
+class JobApplicationDeleteView(generic.DeleteView):
+    model = JobApplication
+    template_name = "JobApplication/jobapplication_confirm_delete.html"
+    success_url = reverse_lazy('application_list')
