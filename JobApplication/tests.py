@@ -76,3 +76,35 @@ class TestJobApplication(TestCase):
                 job_title="Softwareentwickler",
             ).exists()
         )
+
+    def test_application_update_page_returns_status_code_200(self):
+        url = reverse("application_update", kwargs={"pk": self.application.pk})
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+
+
+    def test_application_can_be_updated_from_form(self):
+        url = reverse("application_update", kwargs={"pk": self.application.pk})
+
+        data = {
+            "company_name": "FERCHAU",
+            "job_title": "Softwareentwickler",
+            "location": "Rostock",
+            "job_url": "https://example.com/job",
+            "source": "LinkedIn",
+            "application_date": "2026-07-16",
+            "status": "applied",
+            "notes": "Test Bewerbung",
+        }
+
+        response = self.client.post(url, data)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(JobApplication.objects.count(), 1)
+        self.application.refresh_from_db()
+
+        self.assertEqual(self.application.company_name, "FERCHAU")
+        self.assertEqual(self.application.job_title, "Softwareentwickler")
+        self.assertEqual(self.application.location, "Rostock")
+        self.assertEqual(self.application.status, "applied")
