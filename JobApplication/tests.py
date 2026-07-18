@@ -43,3 +43,36 @@ class TestJobApplication(TestCase):
         self.assertContains(response, "Blus")
         self.assertContains(response, "Entwickler")
         self.assertContains(response, "Geplant")
+
+
+    def test_application_create_page_returns_status_code_200(self):
+        url = reverse("application_create")
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+
+
+    def test_application_can_be_created_from_form(self):
+        url = reverse("application_create")
+
+        data = {
+            "company_name": "FERCHAU",
+            "job_title": "Softwareentwickler",
+            "location": "Rostock",
+            "job_url": "https://example.com/job",
+            "source": "LinkedIn",
+            "application_date": "2026-07-16",
+            "status": "planned",
+            "notes": "Test Bewerbung",
+        }
+
+        response = self.client.post(url, data)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(JobApplication.objects.count(), 2)
+        self.assertTrue(
+            JobApplication.objects.filter(
+                company_name="FERCHAU",
+                job_title="Softwareentwickler",
+            ).exists()
+        )
