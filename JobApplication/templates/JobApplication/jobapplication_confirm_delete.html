@@ -1,0 +1,14 @@
+<h1>Bewerbung löschen</h1>
+
+<p>
+    Möchtest du die Bewerbung
+    <strong>{{ object.company_name }} - {{ object.job_title }}</strong>
+    wirklich löschen?
+</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Ja, löschen</button>
+</form>
+
+<a href="{% url 'application_list' %}">Abbrechen</a>

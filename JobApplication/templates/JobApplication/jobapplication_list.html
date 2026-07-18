@@ -1,0 +1,23 @@
+<h1>Jobs</h1>
+
+<a href="{% url 'application_create' %}">Neue Bewerbung anlegen</a>
+
+<ul>
+{% for application in applications %}
+    <li>
+        {{ application.company_name }} - {{ application.job_title }}
+        <br>
+        Status: {{ application.get_status_display }}
+        <br>
+        Bewerbungsdatum: {{ application.application_date|default:"-" }}
+        <br>
+        <a href="{% url 'application_update' application.pk %}">
+            Bewerbung bearbeiten
+        </a>
+        <br>
+        <a href="{% url 'application_delete' application.pk %}">Löschen</a>
+    </li>
+{% empty %}
+    <li>No job now.</li>
+{% endfor %}
+</ul>
