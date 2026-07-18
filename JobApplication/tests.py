@@ -108,3 +108,21 @@ class TestJobApplication(TestCase):
         self.assertEqual(self.application.job_title, "Softwareentwickler")
         self.assertEqual(self.application.location, "Rostock")
         self.assertEqual(self.application.status, "applied")
+
+    def test_application_delete_page_returns_status_code_200(self):
+        url = reverse("application_delete", kwargs={"pk": self.application.pk})
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "wirklich löschen")
+
+
+    def test_application_can_be_deleted(self):
+        url = reverse("application_delete", kwargs={"pk": self.application.pk})
+        response = self.client.post(url)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(JobApplication.objects.count(), 0)
+        self.assertFalse(
+            JobApplication.objects.filter(pk=self.application.pk).exists()
+        )        
