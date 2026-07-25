@@ -35,3 +35,62 @@ td {
 th {
     background-color: #eeeeee;
 }
+
+
+
+.btn {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.btn-edit {
+    background-color: #e8f0fe;
+    color: #174ea6;
+}
+
+.btn-delete {
+    background-color: #fdecea;
+    color: #b3261e;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.status-planned {
+    background-color: #eeeeee;
+    color: #333333;
+}
+
+.status-applied {
+    background-color: #e8f0fe;
+    color: #174ea6;
+}
+
+.status-interview {
+    background-color: #fff4e5;
+    color: #8a4b00;
+}
+
+.status-task {
+    background-color: #f3e8ff;
+    color: #6b21a8;
+}
+
+.status-rejected {
+    background-color: #fdecea;
+    color: #b3261e;
+}
+
+.status-accepted {
+    background-color: #e6f4ea;
+    color: #137333;
+}
