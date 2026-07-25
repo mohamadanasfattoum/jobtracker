@@ -171,3 +171,28 @@ class TestJobApplication(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "FERCHAU")
         self.assertNotContains(response, "Blus")        
+
+    def test_dashboard_statistics_are_in_context(self):
+        JobApplication.objects.create(
+            company_name="FERCHAU",
+            job_title="Softwareentwickler",
+            status="applied",
+        )
+
+        JobApplication.objects.create(
+            company_name="FLI",
+            job_title="IT-Mitarbeiter",
+            status="interview",
+        )
+
+        url = reverse("application_list")
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["total_count"], 3)
+        self.assertEqual(response.context["planned_count"], 1)
+        self.assertEqual(response.context["applied_count"], 1)
+        self.assertEqual(response.context["interview_count"], 1)
+        self.assertEqual(response.context["task_count"], 0)
+        self.assertEqual(response.context["rejected_count"], 0)
+        self.assertEqual(response.context["accepted_count"], 0)
