@@ -20,6 +20,15 @@ class JobApplicationListView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["selected_status"] = self.request.GET.get("status", "")
+        
+        context["total_count"] = JobApplication.objects.count()
+        context["planned_count"] = JobApplication.objects.filter(status="planned").count()
+        context["applied_count"] = JobApplication.objects.filter(status="applied").count()
+        context["interview_count"] = JobApplication.objects.filter(status="interview").count()
+        context["task_count"] = JobApplication.objects.filter(status="task").count()
+        context["rejected_count"] = JobApplication.objects.filter(status="rejected").count()
+        context["accepted_count"] = JobApplication.objects.filter(status="accepted").count()
+
         return context
 
 class JobApplicationCreateView(generic.CreateView):

@@ -1,5 +1,17 @@
 <h1>Jobs</h1>
 
+<h2>Statistik</h2>
+
+<ul>
+    <li>Alle Bewerbungen: {{ total_count }}</li>
+    <li>Geplant: {{ planned_count }}</li>
+    <li>Beworben: {{ applied_count }}</li>
+    <li>Gespräch: {{ interview_count }}</li>
+    <li>Aufgabe: {{ task_count }}</li>
+    <li>Absage: {{ rejected_count }}</li>
+    <li>Zusage: {{ accepted_count }}</li>
+</ul>
+
 <a href="{% url 'application_create' %}">Neue Bewerbung anlegen</a>
 <h2>Filter nach Status</h2>
 
@@ -26,6 +38,6 @@
         <a href="{% url 'application_delete' application.pk %}">Löschen</a>
     </li>
 {% empty %}
-    <li>No job now.</li>
+    <li>No job now.</li>ö
 {% endfor %}
 </ul>
