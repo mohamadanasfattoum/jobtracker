@@ -94,3 +94,33 @@ th {
     background-color: #e6f4ea;
     color: #137333;
 }
+
+
+
+.stats-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background-color: #f8f9fa;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    padding: 14px 18px;
+    min-width: 110px;
+}
+
+.stat-number {
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.stat-label {
+    display: block;
+    margin-top: 4px;
+    font-size: 14px;
+    color: #555555;
+}

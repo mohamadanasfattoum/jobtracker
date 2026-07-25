@@ -3,19 +3,44 @@
 {% block content %}
 
 <h1>Jobs</h1>
-
 <h2>Statistik</h2>
 
-<ul>
-    <li>Alle Bewerbungen: {{ total_count }}</li>
-    <li>Geplant: {{ planned_count }}</li>
-    <li>Beworben: {{ applied_count }}</li>
-    <li>Gespräch: {{ interview_count }}</li>
-    <li>Aufgabe: {{ task_count }}</li>
-    <li>Absage: {{ rejected_count }}</li>
-    <li>Zusage: {{ accepted_count }}</li>
-</ul>
+<div class="stats-grid">
+    <div class="stat-card">
+        <span class="stat-number">{{ total_count }}</span>
+        <span class="stat-label">Alle</span>
+    </div>
 
+    <div class="stat-card">
+        <span class="stat-number">{{ planned_count }}</span>
+        <span class="stat-label">Geplant</span>
+    </div>
+
+    <div class="stat-card">
+        <span class="stat-number">{{ applied_count }}</span>
+        <span class="stat-label">Beworben</span>
+    </div>
+
+    <div class="stat-card">
+        <span class="stat-number">{{ interview_count }}</span>
+        <span class="stat-label">Gespräch</span>
+    </div>
+
+    <div class="stat-card">
+        <span class="stat-number">{{ task_count }}</span>
+        <span class="stat-label">Aufgabe</span>
+    </div>
+
+    <div class="stat-card">
+        <span class="stat-number">{{ rejected_count }}</span>
+        <span class="stat-label">Absage</span>
+    </div>
+
+    <div class="stat-card">
+        <span class="stat-number">{{ accepted_count }}</span>
+        <span class="stat-label">Zusage</span>
+    </div>
+</div>
 
 
 <h2>Filter nach Status</h2>
