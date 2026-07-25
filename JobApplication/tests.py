@@ -126,3 +126,48 @@ class TestJobApplication(TestCase):
         self.assertFalse(
             JobApplication.objects.filter(pk=self.application.pk).exists()
         )        
+
+
+    def test_application_list_without_filter_shows_all_applications(self):
+        JobApplication.objects.create(
+            company_name="FERCHAU",
+            job_title="Softwareentwickler",
+            status="applied",
+        )
+
+        url = reverse("application_list")
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Blus")
+        self.assertContains(response, "FERCHAU")
+
+
+    def test_application_list_can_be_filtered_by_planned_status(self):
+        JobApplication.objects.create(
+            company_name="FERCHAU",
+            job_title="Softwareentwickler",
+            status="applied",
+        )
+
+        url = reverse("application_list")
+        response = self.client.get(url, {"status": "planned"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Blus")
+        self.assertNotContains(response, "FERCHAU")
+
+
+    def test_application_list_can_be_filtered_by_applied_status(self):
+        JobApplication.objects.create(
+            company_name="FERCHAU",
+            job_title="Softwareentwickler",
+            status="applied",
+        )
+
+        url = reverse("application_list")
+        response = self.client.get(url, {"status": "applied"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "FERCHAU")
+        self.assertNotContains(response, "Blus")        

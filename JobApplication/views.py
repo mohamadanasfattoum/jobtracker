@@ -9,7 +9,18 @@ from .forms import JobApplicationForm
 class JobApplicationListView(generic.ListView):
     model = JobApplication
     context_object_name = "applications"
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        status = self.request.GET.get("status")
 
+        if status:
+            queryset = queryset.filter(status=status)
+
+        return queryset
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["selected_status"] = self.request.GET.get("status", "")
+        return context
 
 class JobApplicationCreateView(generic.CreateView):
     model = JobApplication
