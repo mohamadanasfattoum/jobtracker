@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>JobTracker</title>
+</head>
+<body>
+    <header>
+        <h1>JobTracker</h1>
+
+        <nav>
+            <a href="{% url 'application_list' %}">Bewerbungen</a>
+            |
+            <a href="{% url 'application_create' %}">Neue Bewerbung</a>
+        </nav>
+
+        <hr>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>
