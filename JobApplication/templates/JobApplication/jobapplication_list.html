@@ -1,7 +1,15 @@
 <h1>Jobs</h1>
 
 <a href="{% url 'application_create' %}">Neue Bewerbung anlegen</a>
+<h2>Filter nach Status</h2>
 
+<a href="{% url 'application_list' %}">Alle</a>
+<a href="{% url 'application_list' %}?status=planned">Geplant</a>
+<a href="{% url 'application_list' %}?status=applied">Beworben</a>
+<a href="{% url 'application_list' %}?status=interview">Gespräch</a>
+<a href="{% url 'application_list' %}?status=task">Aufgabe</a>
+<a href="{% url 'application_list' %}?status=rejected">Absage</a>
+<a href="{% url 'application_list' %}?status=accepted">Zusage</a>
 <ul>
 {% for application in applications %}
     <li>
