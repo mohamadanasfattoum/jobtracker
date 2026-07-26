@@ -15,6 +15,8 @@ class JobApplicationListView(generic.ListView):
         queryset = super().get_queryset()
         status = self.request.GET.get("status")
         search_query = self.request.GET.get("q")
+        sort = self.request.GET.get("sort", "date_asc")
+
 
         if search_query:
             queryset = queryset.filter(
@@ -26,6 +28,15 @@ class JobApplicationListView(generic.ListView):
         if status:
             queryset = queryset.filter(status=status)
 
+        if sort == "created_desc":
+            queryset = queryset.order_by("-created_at")
+        elif sort == "created_asc":
+            queryset = queryset.order_by("created_at")
+        elif sort == "date_desc":
+            queryset = queryset.order_by("-application_date")
+        else:
+            queryset = queryset.order_by("application_date")
+
         return queryset
 
 
@@ -35,6 +46,8 @@ class JobApplicationListView(generic.ListView):
         
         context["search_query"] = self.request.GET.get("q", "")
         context["selected_status"] = self.request.GET.get("status", "")
+        context["selected_sort"] = self.request.GET.get("sort", "created_desc")
+
         
         context["total_count"] = JobApplication.objects.count()
         context["planned_count"] = JobApplication.objects.filter(status="planned").count()

@@ -98,7 +98,29 @@
     </a>
 </div>
 
+<h2>Sortierung</h2>
 
+<div class="filter-actions">
+    <a class="filter-btn {% if selected_sort == 'created_desc' %}active{% endif %}"
+       href="{% url 'application_list' %}?sort=created_desc">
+        Neueste zuerst
+    </a>
+
+    <a class="filter-btn {% if selected_sort == 'created_asc' %}active{% endif %}"
+       href="{% url 'application_list' %}?sort=created_asc">
+        Älteste zuerst
+    </a>
+
+    <a class="filter-btn {% if selected_sort == 'date_desc' %}active{% endif %}"
+       href="{% url 'application_list' %}?sort=date_desc">
+        Bewerbungsdatum neueste zuerst
+    </a>
+
+    <a class="filter-btn {% if selected_sort == 'date_asc' %}active{% endif %}"
+       href="{% url 'application_list' %}?sort=date_asc">
+        Bewerbungsdatum älteste zuerst
+    </a>
+</div>
 
 <table>
     <thead>
