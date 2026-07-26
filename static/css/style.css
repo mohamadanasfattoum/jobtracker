@@ -124,3 +124,50 @@ th {
     font-size: 14px;
     color: #555555;
 }
+
+
+
+
+.application-form {
+    max-width: 700px;
+}
+
+.application-form p {
+    margin-bottom: 15px;
+}
+
+.application-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.application-form input,
+.application-form select,
+.application-form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.application-form textarea {
+    min-height: 120px;
+}
+
+.form-actions {
+    margin-top: 20px;
+}
+
+.btn-save {
+    background-color: #e6f4ea;
+    color: #137333;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background-color: #eeeeee;
+    color: #333333;
+}
