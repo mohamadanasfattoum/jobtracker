@@ -262,3 +262,14 @@ th {
     border: 1px solid #cccccc;
     border-radius: 4px;
 }
+
+/* =========================
+   Pagination
+   ========================= */
+
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
