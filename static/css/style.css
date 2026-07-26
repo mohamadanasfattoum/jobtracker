@@ -243,3 +243,22 @@ th {
     color: #b3261e;
     font-weight: bold;
 }
+
+
+
+/* =========================
+   Search Form
+   ========================= */
+
+.search-form {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.search-form input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}

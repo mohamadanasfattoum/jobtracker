@@ -1,5 +1,6 @@
 from django.views import generic
 from django.urls import reverse_lazy
+from django.db.models import Q
 
 from .models import JobApplication
 from .forms import JobApplicationForm
@@ -9,16 +10,30 @@ from .forms import JobApplicationForm
 class JobApplicationListView(generic.ListView):
     model = JobApplication
     context_object_name = "applications"
+
     def get_queryset(self):
         queryset = super().get_queryset()
         status = self.request.GET.get("status")
+        search_query = self.request.GET.get("q")
+
+        if search_query:
+            queryset = queryset.filter(
+                Q(company_name__icontains=search_query)
+                | Q(job_title__icontains=search_query)
+                | Q(location__icontains=search_query)
+            )
 
         if status:
             queryset = queryset.filter(status=status)
 
         return queryset
+
+
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        
+        context["search_query"] = self.request.GET.get("q", "")
         context["selected_status"] = self.request.GET.get("status", "")
         
         context["total_count"] = JobApplication.objects.count()

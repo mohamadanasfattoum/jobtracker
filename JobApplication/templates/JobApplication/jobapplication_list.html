@@ -42,6 +42,18 @@
     </div>
 </div>
 
+<h2>Suche</h2>
+
+<form method="get" class="search-form">
+    <input
+        type="text"
+        name="q"
+        placeholder="Firma, Stelle oder Ort suchen"
+        value="{{ search_query }}"
+    >
+    <button type="submit" class="btn btn-save">Suchen</button>
+    <a class="btn btn-secondary" href="{% url 'application_list' %}">Zurücksetzen</a>
+</form>
 
 <h2>Filter nach Status</h2>
 
