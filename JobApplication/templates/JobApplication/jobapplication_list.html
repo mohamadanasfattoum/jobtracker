@@ -164,4 +164,27 @@
     </tbody>
 </table>
 
+
+{% if is_paginated %}
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a class="btn btn-secondary"
+               href="?{% if search_query %}q={{ search_query|urlencode }}&{% endif %}{% if selected_status %}status={{ selected_status }}&{% endif %}{% if selected_sort %}sort={{ selected_sort }}&{% endif %}page={{ page_obj.previous_page_number }}">
+                Zurück
+            </a>
+        {% endif %}
+
+        <span>
+            Seite {{ page_obj.number }} von {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a class="btn btn-secondary"
+               href="?{% if search_query %}q={{ search_query|urlencode }}&{% endif %}{% if selected_status %}status={{ selected_status }}&{% endif %}{% if selected_sort %}sort={{ selected_sort }}&{% endif %}page={{ page_obj.next_page_number }}">
+                Weiter
+            </a>
+        {% endif %}
+    </div>
+{% endif %}
+
 {% endblock %}

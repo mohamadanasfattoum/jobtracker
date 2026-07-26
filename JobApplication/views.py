@@ -10,6 +10,7 @@ from .forms import JobApplicationForm
 class JobApplicationListView(generic.ListView):
     model = JobApplication
     context_object_name = "applications"
+    paginate_by = 10
 
     def get_queryset(self):
         queryset = super().get_queryset()
