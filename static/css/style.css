@@ -185,3 +185,32 @@ th {
     color: #b3261e;
     font-weight: bold;
 }
+
+
+
+.filter-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.filter-btn {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 20px;
+    background-color: #eeeeee;
+    color: #333333;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.filter-btn:hover {
+    background-color: #dddddd;
+}
+
+.filter-btn.active {
+    background-color: #174ea6;
+    color: white;
+    font-weight: bold;
+}

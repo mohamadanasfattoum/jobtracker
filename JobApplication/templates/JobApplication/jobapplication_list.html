@@ -45,14 +45,42 @@
 
 <h2>Filter nach Status</h2>
 
-<a href="{% url 'application_list' %}">Alle</a>
-<a href="{% url 'application_list' %}?status=planned">Geplant</a>
-<a href="{% url 'application_list' %}?status=applied">Beworben</a>
-<a href="{% url 'application_list' %}?status=interview">Gespräch</a>
-<a href="{% url 'application_list' %}?status=task">Aufgabe</a>
-<a href="{% url 'application_list' %}?status=rejected">Absage</a>
-<a href="{% url 'application_list' %}?status=accepted">Zusage</a>
+<div class="filter-actions">
+    <a class="filter-btn {% if not selected_status %}active{% endif %}"
+       href="{% url 'application_list' %}">
+        Alle
+    </a>
 
+    <a class="filter-btn {% if selected_status == 'planned' %}active{% endif %}"
+       href="{% url 'application_list' %}?status=planned">
+        Geplant
+    </a>
+
+    <a class="filter-btn {% if selected_status == 'applied' %}active{% endif %}"
+       href="{% url 'application_list' %}?status=applied">
+        Beworben
+    </a>
+
+    <a class="filter-btn {% if selected_status == 'interview' %}active{% endif %}"
+       href="{% url 'application_list' %}?status=interview">
+        Gespräch
+    </a>
+
+    <a class="filter-btn {% if selected_status == 'task' %}active{% endif %}"
+       href="{% url 'application_list' %}?status=task">
+        Aufgabe
+    </a>
+
+    <a class="filter-btn {% if selected_status == 'rejected' %}active{% endif %}"
+       href="{% url 'application_list' %}?status=rejected">
+        Absage
+    </a>
+
+    <a class="filter-btn {% if selected_status == 'accepted' %}active{% endif %}"
+       href="{% url 'application_list' %}?status=accepted">
+        Zusage
+    </a>
+</div>
 
 
 
