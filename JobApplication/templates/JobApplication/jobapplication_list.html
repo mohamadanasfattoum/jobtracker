@@ -45,6 +45,10 @@
 <h2>Suche</h2>
 
 <form method="get" class="search-form">
+    {% if selected_status %}
+        <input type="hidden" name="status" value="{{ selected_status }}">
+    {% endif %}
+
     <input
         type="text"
         name="q"
@@ -59,37 +63,37 @@
 
 <div class="filter-actions">
     <a class="filter-btn {% if not selected_status %}active{% endif %}"
-       href="{% url 'application_list' %}">
+        href="{% url 'application_list' %}{% if search_query %}?q={{ search_query|urlencode }}{% endif %}">
         Alle
     </a>
 
     <a class="filter-btn {% if selected_status == 'planned' %}active{% endif %}"
-       href="{% url 'application_list' %}?status=planned">
+       href="{% url 'application_list' %}?{% if search_query %}q={{ search_query|urlencode }}&{% endif %}status=planned">
         Geplant
     </a>
 
     <a class="filter-btn {% if selected_status == 'applied' %}active{% endif %}"
-       href="{% url 'application_list' %}?status=applied">
+       href="{% url 'application_list' %}?{% if search_query %}q={{ search_query|urlencode }}&{% endif %}status=applied">
         Beworben
     </a>
 
     <a class="filter-btn {% if selected_status == 'interview' %}active{% endif %}"
-       href="{% url 'application_list' %}?status=interview">
+       href="{% url 'application_list' %}?{% if search_query %}q={{ search_query|urlencode }}&{% endif %}status=interview">
         Gespräch
     </a>
 
     <a class="filter-btn {% if selected_status == 'task' %}active{% endif %}"
-       href="{% url 'application_list' %}?status=task">
+       href="{% url 'application_list' %}?{% if search_query %}q={{ search_query|urlencode }}&{% endif %}status=task">
         Aufgabe
     </a>
 
     <a class="filter-btn {% if selected_status == 'rejected' %}active{% endif %}"
-       href="{% url 'application_list' %}?status=rejected">
+       href="{% url 'application_list' %}?{% if search_query %}q={{ search_query|urlencode }}&{% endif %}status=rejected">
         Absage
     </a>
 
     <a class="filter-btn {% if selected_status == 'accepted' %}active{% endif %}"
-       href="{% url 'application_list' %}?status=accepted">
+       href="{% url 'application_list' %}?{% if search_query %}q={{ search_query|urlencode }}&{% endif %}status=accepted">
         Zusage
     </a>
 </div>
