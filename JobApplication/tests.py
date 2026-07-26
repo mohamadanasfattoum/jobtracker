@@ -202,36 +202,23 @@ class TestJobApplication(TestCase):
 
 
 
-def test_application_list_can_be_searched_by_company_name(self):
-    JobApplication.objects.create(
-        company_name="FERCHAU",
-        job_title="Softwareentwickler",
-        location="Rostock",
-        status="applied",
-    )
-
-    url = reverse("application_list")
-    response = self.client.get(url, {"q": "FERCHAU"})
-
-    self.assertEqual(response.status_code, 200)
-    self.assertContains(response, "FERCHAU")
-    self.assertNotContains(response, "Blus")
 
 
-def test_application_list_can_be_searched_by_job_title(self):
-    JobApplication.objects.create(
-        company_name="FERCHAU",
-        job_title="Python Developer",
-        location="Rostock",
-        status="applied",
-    )
 
-    url = reverse("application_list")
-    response = self.client.get(url, {"q": "Python"})
+    def test_application_list_can_be_searched_by_job_title(self):
+        JobApplication.objects.create(
+            company_name="FERCHAU",
+            job_title="Python Developer",
+            location="Rostock",
+            status="applied",
+        )
 
-    self.assertEqual(response.status_code, 200)
-    self.assertContains(response, "Python Developer")
-    self.assertNotContains(response, "Blus")
+        url = reverse("application_list")
+        response = self.client.get(url, {"q": "Python"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Python Developer")
+        self.assertNotContains(response, "Blus")
 
 
     def test_application_list_can_be_searched_by_location(self):
@@ -248,3 +235,71 @@ def test_application_list_can_be_searched_by_job_title(self):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Rostock")
         self.assertNotContains(response, "Blus")
+
+
+    def test_application_list_sorts_by_application_date_ascending(self):
+        JobApplication.objects.create(
+            company_name="A Firma",
+            job_title="Backend Entwickler",
+            application_date="2026-07-20",
+        )
+
+        JobApplication.objects.create(
+            company_name="B Firma",
+            job_title="Frontend Entwickler",
+            application_date="2026-07-10",
+        )
+
+        url = reverse("application_list")
+        response = self.client.get(url, {"sort": "date_asc"})
+
+        applications = list(response.context["applications"])
+
+        self.assertEqual(applications[0].company_name, "B Firma")
+        self.assertEqual(applications[1].company_name, "A Firma")
+
+
+    def test_application_list_sorts_by_application_date_descending(self):
+        JobApplication.objects.create(
+            company_name="A Firma",
+            job_title="Backend Entwickler",
+            application_date="2026-07-20",
+        )
+
+        JobApplication.objects.create(
+            company_name="B Firma",
+            job_title="Frontend Entwickler",
+            application_date="2026-07-10",
+        )
+
+        url = reverse("application_list")
+        response = self.client.get(url, {"sort": "date_desc"})
+
+        applications = list(response.context["applications"])
+
+        self.assertEqual(applications[0].company_name, "A Firma")
+        self.assertEqual(applications[1].company_name, "B Firma")
+
+
+    def test_application_list_sorts_by_application_date_ascending(self):
+        JobApplication.objects.all().delete()
+
+        JobApplication.objects.create(
+            company_name="A Firma",
+            job_title="Backend Entwickler",
+            application_date="2026-07-20",
+        )
+
+        JobApplication.objects.create(
+            company_name="B Firma",
+            job_title="Frontend Entwickler",
+            application_date="2026-07-10",
+        )
+
+        url = reverse("application_list")
+        response = self.client.get(url, {"sort": "date_asc"})
+
+        applications = list(response.context["applications"])
+
+        self.assertEqual(applications[0].company_name, "B Firma")
+        self.assertEqual(applications[1].company_name, "A Firma")
