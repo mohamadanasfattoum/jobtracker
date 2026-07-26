@@ -171,3 +171,17 @@ th {
     background-color: #eeeeee;
     color: #333333;
 }
+
+
+.delete-box {
+    max-width: 600px;
+    border: 1px solid #f0c2c0;
+    background-color: #fff5f5;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.warning-text {
+    color: #b3261e;
+    font-weight: bold;
+}
