@@ -196,3 +196,55 @@ class TestJobApplication(TestCase):
         self.assertEqual(response.context["task_count"], 0)
         self.assertEqual(response.context["rejected_count"], 0)
         self.assertEqual(response.context["accepted_count"], 0)
+
+
+
+
+
+
+def test_application_list_can_be_searched_by_company_name(self):
+    JobApplication.objects.create(
+        company_name="FERCHAU",
+        job_title="Softwareentwickler",
+        location="Rostock",
+        status="applied",
+    )
+
+    url = reverse("application_list")
+    response = self.client.get(url, {"q": "FERCHAU"})
+
+    self.assertEqual(response.status_code, 200)
+    self.assertContains(response, "FERCHAU")
+    self.assertNotContains(response, "Blus")
+
+
+def test_application_list_can_be_searched_by_job_title(self):
+    JobApplication.objects.create(
+        company_name="FERCHAU",
+        job_title="Python Developer",
+        location="Rostock",
+        status="applied",
+    )
+
+    url = reverse("application_list")
+    response = self.client.get(url, {"q": "Python"})
+
+    self.assertEqual(response.status_code, 200)
+    self.assertContains(response, "Python Developer")
+    self.assertNotContains(response, "Blus")
+
+
+    def test_application_list_can_be_searched_by_location(self):
+        JobApplication.objects.create(
+            company_name="FERCHAU",
+            job_title="Softwareentwickler",
+            location="Rostock",
+            status="applied",
+        )
+
+        url = reverse("application_list")
+        response = self.client.get(url, {"q": "Rostock"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Rostock")
+        self.assertNotContains(response, "Blus")
