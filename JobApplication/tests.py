@@ -310,3 +310,40 @@ class TestJobApplication(TestCase):
         self.assertEqual(applications[0].company_name, "B Firma")
         self.assertEqual(applications[1].company_name, "A Firma")
 
+    def test_application_list_is_paginated(self):
+        JobApplication.objects.all().delete()
+
+        for i in range(12):
+            JobApplication.objects.create(
+                company_name=f"Firma {i + 1}",
+                job_title="Softwareentwickler",
+                location="Rostock",
+                application_date=f"2026-07-{i + 1:02d}",
+                status="planned",
+            )
+
+        url = reverse("application_list")
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.context["is_paginated"])
+        self.assertEqual(len(response.context["applications"]), 10)
+
+
+    def test_application_list_second_page_shows_remaining_applications(self):
+        JobApplication.objects.all().delete()
+
+        for i in range(12):
+            JobApplication.objects.create(
+                company_name=f"Firma {i + 1}",
+                job_title="Softwareentwickler",
+                location="Rostock",
+                application_date=f"2026-07-{i + 1:02d}",
+                status="planned",
+            )
+
+        url = reverse("application_list")
+        response = self.client.get(url, {"page": 2})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["applications"]), 2)
