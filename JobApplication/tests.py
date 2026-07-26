@@ -198,13 +198,6 @@ class TestJobApplication(TestCase):
         self.assertEqual(response.context["accepted_count"], 0)
 
 
-
-
-
-
-
-
-
     def test_application_list_can_be_searched_by_job_title(self):
         JobApplication.objects.create(
             company_name="FERCHAU",
@@ -236,7 +229,20 @@ class TestJobApplication(TestCase):
         self.assertContains(response, "Rostock")
         self.assertNotContains(response, "Blus")
 
+    def test_application_list_can_be_searched_by_company_name(self):
+        JobApplication.objects.create(
+            company_name="FERCHAU",
+            job_title="Softwareentwickler",
+            location="Rostock",
+            status="applied",
+        )
 
+        url = reverse("application_list")
+        response = self.client.get(url, {"q": "FERCHAU"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "FERCHAU")
+        self.assertNotContains(response, "Blus")
     def test_application_list_sorts_by_application_date_ascending(self):
         JobApplication.objects.create(
             company_name="A Firma",
@@ -303,3 +309,4 @@ class TestJobApplication(TestCase):
 
         self.assertEqual(applications[0].company_name, "B Firma")
         self.assertEqual(applications[1].company_name, "A Firma")
+
