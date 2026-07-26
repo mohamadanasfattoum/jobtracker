@@ -1,0 +1,245 @@
+/* =========================
+   Base Layout
+   ========================= */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 30px;
+    background-color: #f5f5f5;
+}
+
+header {
+    margin-bottom: 20px;
+}
+
+nav a {
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+main {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+
+/* =========================
+   Table Layout
+   ========================= */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #eeeeee;
+}
+
+
+/* =========================
+   General Buttons
+   ========================= */
+
+.btn {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.btn-edit {
+    background-color: #e8f0fe;
+    color: #174ea6;
+}
+
+.btn-delete {
+    background-color: #fdecea;
+    color: #b3261e;
+}
+
+.btn-save {
+    background-color: #e6f4ea;
+    color: #137333;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background-color: #eeeeee;
+    color: #333333;
+}
+
+
+/* =========================
+   Status Badges
+   ========================= */
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.status-planned {
+    background-color: #eeeeee;
+    color: #333333;
+}
+
+.status-applied {
+    background-color: #e8f0fe;
+    color: #174ea6;
+}
+
+.status-interview {
+    background-color: #fff4e5;
+    color: #8a4b00;
+}
+
+.status-task {
+    background-color: #f3e8ff;
+    color: #6b21a8;
+}
+
+.status-rejected {
+    background-color: #fdecea;
+    color: #b3261e;
+}
+
+.status-accepted {
+    background-color: #e6f4ea;
+    color: #137333;
+}
+
+
+/* =========================
+   Dashboard Statistics
+   ========================= */
+
+.stats-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background-color: #f8f9fa;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    padding: 14px 18px;
+    min-width: 110px;
+}
+
+.stat-number {
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.stat-label {
+    display: block;
+    margin-top: 4px;
+    font-size: 14px;
+    color: #555555;
+}
+
+
+/* =========================
+   Status Filter Buttons
+   ========================= */
+
+.filter-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.filter-btn {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 20px;
+    background-color: #eeeeee;
+    color: #333333;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.filter-btn:hover {
+    background-color: #dddddd;
+}
+
+.filter-btn.active {
+    background-color: #174ea6;
+    color: white;
+    font-weight: bold;
+}
+
+
+/* =========================
+   Application Form
+   ========================= */
+
+.application-form {
+    max-width: 700px;
+}
+
+.application-form p {
+    margin-bottom: 15px;
+}
+
+.application-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.application-form input,
+.application-form select,
+.application-form textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.application-form textarea {
+    min-height: 120px;
+}
+
+.form-actions {
+    margin-top: 20px;
+}
+
+
+/* =========================
+   Delete Confirmation Page
+   ========================= */
+
+.delete-box {
+    max-width: 600px;
+    border: 1px solid #f0c2c0;
+    background-color: #fff5f5;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.warning-text {
+    color: #b3261e;
+    font-weight: bold;
+}

@@ -2,11 +2,17 @@
 
 {% block content %}
 
+<h2>Bewerbung speichern</h2>
 
-<form method="post">
+<form method="post" class="application-form">
     {% csrf_token %}
+
     {{ form.as_p }}
-    <button type="submit">Speichern</button>
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-save">Speichern</button>
+        <a class="btn btn-secondary" href="{% url 'application_list' %}">Zurück</a>
+    </div>
 </form>
 
 {% endblock %}
