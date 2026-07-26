@@ -1,3 +1,7 @@
+/* =========================
+   Base Layout
+   ========================= */
+
 body {
     font-family: Arial, sans-serif;
     margin: 30px;
@@ -19,6 +23,11 @@ main {
     border-radius: 8px;
 }
 
+
+/* =========================
+   Table Layout
+   ========================= */
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -37,6 +46,9 @@ th {
 }
 
 
+/* =========================
+   General Buttons
+   ========================= */
 
 .btn {
     display: inline-block;
@@ -56,6 +68,23 @@ th {
     background-color: #fdecea;
     color: #b3261e;
 }
+
+.btn-save {
+    background-color: #e6f4ea;
+    color: #137333;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-secondary {
+    background-color: #eeeeee;
+    color: #333333;
+}
+
+
+/* =========================
+   Status Badges
+   ========================= */
 
 .status-badge {
     display: inline-block;
@@ -96,6 +125,9 @@ th {
 }
 
 
+/* =========================
+   Dashboard Statistics
+   ========================= */
 
 .stats-grid {
     display: flex;
@@ -126,7 +158,41 @@ th {
 }
 
 
+/* =========================
+   Status Filter Buttons
+   ========================= */
 
+.filter-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.filter-btn {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 20px;
+    background-color: #eeeeee;
+    color: #333333;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.filter-btn:hover {
+    background-color: #dddddd;
+}
+
+.filter-btn.active {
+    background-color: #174ea6;
+    color: white;
+    font-weight: bold;
+}
+
+
+/* =========================
+   Application Form
+   ========================= */
 
 .application-form {
     max-width: 700px;
@@ -160,18 +226,10 @@ th {
     margin-top: 20px;
 }
 
-.btn-save {
-    background-color: #e6f4ea;
-    color: #137333;
-    border: none;
-    cursor: pointer;
-}
 
-.btn-secondary {
-    background-color: #eeeeee;
-    color: #333333;
-}
-
+/* =========================
+   Delete Confirmation Page
+   ========================= */
 
 .delete-box {
     max-width: 600px;
@@ -183,34 +241,5 @@ th {
 
 .warning-text {
     color: #b3261e;
-    font-weight: bold;
-}
-
-
-
-.filter-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 20px;
-}
-
-.filter-btn {
-    display: inline-block;
-    padding: 8px 12px;
-    border-radius: 20px;
-    background-color: #eeeeee;
-    color: #333333;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.filter-btn:hover {
-    background-color: #dddddd;
-}
-
-.filter-btn.active {
-    background-color: #174ea6;
-    color: white;
     font-weight: bold;
 }
