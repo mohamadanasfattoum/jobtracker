@@ -347,3 +347,28 @@ class TestJobApplication(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context["applications"]), 2)
+
+
+
+    def test_application_detail_page_returns_status_code_200(self):
+        url = reverse("application_detail", kwargs={"pk": self.application.pk})
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+
+
+    def test_application_detail_page_uses_correct_template(self):
+        url = reverse("application_detail", kwargs={"pk": self.application.pk})
+        response = self.client.get(url)
+
+        self.assertTemplateUsed(response, "JobApplication/jobapplication_detail.html")
+
+
+    def test_application_detail_page_displays_application_data(self):
+        url = reverse("application_detail", kwargs={"pk": self.application.pk})
+        response = self.client.get(url)
+
+        self.assertContains(response, "Blus")
+        self.assertContains(response, "Entwickler")
+        self.assertContains(response, "Berlin")
+        self.assertContains(response, "Geplant")

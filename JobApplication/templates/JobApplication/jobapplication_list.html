@@ -147,6 +147,10 @@
                 </td>
                 <td>{{ application.application_date|default:"-" }}</td>
                 <td>
+                    <a class="btn btn-secondary" href="{% url 'application_detail' application.pk %}">
+                        Details
+                    </a>
+                    
                     <a class="btn btn-edit" href="{% url 'application_update' application.pk %}">
                         Bearbeiten
                     </a>

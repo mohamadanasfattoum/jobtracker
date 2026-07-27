@@ -60,6 +60,11 @@ class JobApplicationListView(generic.ListView):
 
         return context
 
+class JobApplicationDetailView(generic.DetailView):
+    model = JobApplication
+    context_object_name = "application"
+    template_name = "JobApplication/jobapplication_detail.html"
+
 class JobApplicationCreateView(generic.CreateView):
     model = JobApplication
     form_class = JobApplicationForm  # statt fields="__all__", damit wir die Formularfelder kontrollieren können
