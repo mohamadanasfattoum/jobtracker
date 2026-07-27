@@ -372,3 +372,12 @@ class TestJobApplication(TestCase):
         self.assertContains(response, "Entwickler")
         self.assertContains(response, "Berlin")
         self.assertContains(response, "Geplant")
+
+    def test_application_list_shows_empty_message_when_no_applications_exist(self):
+        JobApplication.objects.all().delete()
+
+        url = reverse("application_list")
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Noch keine Bewerbungen vorhanden.")
