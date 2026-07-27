@@ -273,3 +273,20 @@ th {
     align-items: center;
     gap: 10px;
 }
+
+
+
+/* =========================
+   Detail Page
+   ========================= */
+
+.detail-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.detail-card p {
+    margin-bottom: 10px;
+}
