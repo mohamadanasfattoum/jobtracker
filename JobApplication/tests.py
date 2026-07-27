@@ -171,3 +171,250 @@ class TestJobApplication(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "FERCHAU")
         self.assertNotContains(response, "Blus")        
+
+    def test_dashboard_statistics_are_in_context(self):
+        JobApplication.objects.create(
+            company_name="FERCHAU",
+            job_title="Softwareentwickler",
+            status="applied",
+        )
+
+        JobApplication.objects.create(
+            company_name="FLI",
+            job_title="IT-Mitarbeiter",
+            status="interview",
+        )
+
+        url = reverse("application_list")
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["total_count"], 3)
+        self.assertEqual(response.context["planned_count"], 1)
+        self.assertEqual(response.context["applied_count"], 1)
+        self.assertEqual(response.context["interview_count"], 1)
+        self.assertEqual(response.context["task_count"], 0)
+        self.assertEqual(response.context["rejected_count"], 0)
+        self.assertEqual(response.context["accepted_count"], 0)
+
+
+    def test_application_list_can_be_searched_by_job_title(self):
+        JobApplication.objects.create(
+            company_name="FERCHAU",
+            job_title="Python Developer",
+            location="Rostock",
+            status="applied",
+        )
+
+        url = reverse("application_list")
+        response = self.client.get(url, {"q": "Python"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Python Developer")
+        self.assertNotContains(response, "Blus")
+
+
+    def test_application_list_can_be_searched_by_location(self):
+        JobApplication.objects.create(
+            company_name="FERCHAU",
+            job_title="Softwareentwickler",
+            location="Rostock",
+            status="applied",
+        )
+
+        url = reverse("application_list")
+        response = self.client.get(url, {"q": "Rostock"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Rostock")
+        self.assertNotContains(response, "Blus")
+
+    def test_application_list_can_be_searched_by_company_name(self):
+        JobApplication.objects.create(
+            company_name="FERCHAU",
+            job_title="Softwareentwickler",
+            location="Rostock",
+            status="applied",
+        )
+
+        url = reverse("application_list")
+        response = self.client.get(url, {"q": "FERCHAU"})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "FERCHAU")
+        self.assertNotContains(response, "Blus")
+    def test_application_list_sorts_by_application_date_ascending(self):
+        JobApplication.objects.create(
+            company_name="A Firma",
+            job_title="Backend Entwickler",
+            application_date="2026-07-20",
+        )
+
+        JobApplication.objects.create(
+            company_name="B Firma",
+            job_title="Frontend Entwickler",
+            application_date="2026-07-10",
+        )
+
+        url = reverse("application_list")
+        response = self.client.get(url, {"sort": "date_asc"})
+
+        applications = list(response.context["applications"])
+
+        self.assertEqual(applications[0].company_name, "B Firma")
+        self.assertEqual(applications[1].company_name, "A Firma")
+
+
+    def test_application_list_sorts_by_application_date_descending(self):
+        JobApplication.objects.create(
+            company_name="A Firma",
+            job_title="Backend Entwickler",
+            application_date="2026-07-20",
+        )
+
+        JobApplication.objects.create(
+            company_name="B Firma",
+            job_title="Frontend Entwickler",
+            application_date="2026-07-10",
+        )
+
+        url = reverse("application_list")
+        response = self.client.get(url, {"sort": "date_desc"})
+
+        applications = list(response.context["applications"])
+
+        self.assertEqual(applications[0].company_name, "A Firma")
+        self.assertEqual(applications[1].company_name, "B Firma")
+
+
+    def test_application_list_sorts_by_application_date_ascending(self):
+        JobApplication.objects.all().delete()
+
+        JobApplication.objects.create(
+            company_name="A Firma",
+            job_title="Backend Entwickler",
+            application_date="2026-07-20",
+        )
+
+        JobApplication.objects.create(
+            company_name="B Firma",
+            job_title="Frontend Entwickler",
+            application_date="2026-07-10",
+        )
+
+        url = reverse("application_list")
+        response = self.client.get(url, {"sort": "date_asc"})
+
+        applications = list(response.context["applications"])
+
+        self.assertEqual(applications[0].company_name, "B Firma")
+        self.assertEqual(applications[1].company_name, "A Firma")
+
+    def test_application_list_is_paginated(self):
+        JobApplication.objects.all().delete()
+
+        for i in range(12):
+            JobApplication.objects.create(
+                company_name=f"Firma {i + 1}",
+                job_title="Softwareentwickler",
+                location="Rostock",
+                application_date=f"2026-07-{i + 1:02d}",
+                status="planned",
+            )
+
+        url = reverse("application_list")
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.context["is_paginated"])
+        self.assertEqual(len(response.context["applications"]), 10)
+
+
+    def test_application_list_second_page_shows_remaining_applications(self):
+        JobApplication.objects.all().delete()
+
+        for i in range(12):
+            JobApplication.objects.create(
+                company_name=f"Firma {i + 1}",
+                job_title="Softwareentwickler",
+                location="Rostock",
+                application_date=f"2026-07-{i + 1:02d}",
+                status="planned",
+            )
+
+        url = reverse("application_list")
+        response = self.client.get(url, {"page": 2})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["applications"]), 2)
+
+
+
+    def test_application_detail_page_returns_status_code_200(self):
+        url = reverse("application_detail", kwargs={"pk": self.application.pk})
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+
+
+    def test_application_detail_page_uses_correct_template(self):
+        url = reverse("application_detail", kwargs={"pk": self.application.pk})
+        response = self.client.get(url)
+
+        self.assertTemplateUsed(response, "JobApplication/jobapplication_detail.html")
+
+
+    def test_application_detail_page_displays_application_data(self):
+        url = reverse("application_detail", kwargs={"pk": self.application.pk})
+        response = self.client.get(url)
+
+        self.assertContains(response, "Blus")
+        self.assertContains(response, "Entwickler")
+        self.assertContains(response, "Berlin")
+        self.assertContains(response, "Geplant")
+
+    def test_application_list_shows_empty_message_when_no_applications_exist(self):
+        JobApplication.objects.all().delete()
+
+        url = reverse("application_list")
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Noch keine Bewerbungen vorhanden.")
+
+
+    def test_application_list_shows_empty_message_when_no_applications_exist(self):
+        JobApplication.objects.all().delete()
+
+        url = reverse("application_list")
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Noch keine Bewerbungen vorhanden.")
+
+
+    def test_application_create_page_displays_german_form_labels(self):
+        url = reverse("application_create")
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Firma")
+        self.assertContains(response, "Stelle")
+        self.assertContains(response, "Bewerbungsdatum")
+        self.assertContains(response, "Notizen")
+
+
+    def test_invalid_application_form_does_not_create_application(self):
+        url = reverse("application_create")
+
+        data = {
+            "company_name": "",
+            "job_title": "",
+            "location": "",
+            "status": "planned",
+        }
+
+        response = self.client.post(url, data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(JobApplication.objects.count(), 1)

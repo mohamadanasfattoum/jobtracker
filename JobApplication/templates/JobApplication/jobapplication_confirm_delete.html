@@ -1,14 +1,26 @@
-<h1>Bewerbung löschen</h1>
+{% extends "base.html" %}
 
-<p>
-    Möchtest du die Bewerbung
-    <strong>{{ object.company_name }} - {{ object.job_title }}</strong>
-    wirklich löschen?
-</p>
+{% block content %}
 
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Ja, löschen</button>
-</form>
+<div class="delete-box">
+    <h2>Bewerbung löschen</h2>
 
-<a href="{% url 'application_list' %}">Abbrechen</a>
+    <p>
+        Möchtest du die Bewerbung
+        <strong>{{ object.company_name }} - {{ object.job_title }}</strong>
+        wirklich löschen?
+    </p>
+
+    <p class="warning-text">
+        Diese Aktion kann nicht rückgängig gemacht werden.
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <button type="submit" class="btn btn-delete">Ja, löschen</button>
+        <a class="btn btn-secondary" href="{% url 'application_list' %}">Abbrechen</a>
+    </form>
+</div>
+
+{% endblock %}

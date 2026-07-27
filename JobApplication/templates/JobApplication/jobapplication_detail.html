@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Bewerbung Details</h1>
+
+    <div class="detail-card">
+        <p><strong>Firma:</strong> {{ application.company_name }}</p>
+        <p><strong>Stelle:</strong> {{ application.job_title }}</p>
+        <p><strong>Ort:</strong> {{ application.location }}</p>
+        <p>
+            <strong>Status:</strong>
+            <span class="status-badge status-{{ application.status }}">
+                {{ application.get_status_display }}
+            </span>
+        </p>
+
+        <p><strong>Quelle:</strong> {{ application.source|default:"-" }}</p>
+
+        <p>
+            <strong>Job-Link:</strong>
+            {% if application.job_url %}
+                <a href="{{ application.job_url }}" target="_blank">Anzeige öffnen</a>
+            {% else %}
+                -
+            {% endif %}
+        </p>
+
+        <p><strong>Bewerbungsdatum:</strong> {{ application.application_date|default:"-" }}</p>
+
+        <p><strong>Notizen:</strong></p>
+        <p>{{ application.notes|default:"-"|linebreaks }}</p>
+
+        <p><strong>Erstellt am:</strong> {{ application.created_at }}</p>
+        <p><strong>Aktualisiert am:</strong> {{ application.updated_at }}</p>
+    </div>
+
+    <div class="form-actions">
+        <a class="btn btn-secondary" href="{% url 'application_list' %}">Zurück zur Liste</a>
+        <a class="btn btn-edit" href="{% url 'application_update' application.pk %}">
+            Bearbeiten
+        </a>
+
+        <a class="btn btn-delete" href="{% url 'application_delete' application.pk %}">
+            Löschen
+        </a>
+    </div>
+{% endblock %}
