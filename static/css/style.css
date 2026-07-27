@@ -290,3 +290,14 @@ th {
 .detail-card p {
     margin-bottom: 10px;
 }
+
+/* =========================
+   Empty State
+   ========================= */
+
+.empty-message {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-style: italic;
+}
