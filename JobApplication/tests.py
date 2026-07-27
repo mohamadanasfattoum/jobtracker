@@ -381,3 +381,40 @@ class TestJobApplication(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Noch keine Bewerbungen vorhanden.")
+
+
+    def test_application_list_shows_empty_message_when_no_applications_exist(self):
+        JobApplication.objects.all().delete()
+
+        url = reverse("application_list")
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Noch keine Bewerbungen vorhanden.")
+
+
+    def test_application_create_page_displays_german_form_labels(self):
+        url = reverse("application_create")
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Firma")
+        self.assertContains(response, "Stelle")
+        self.assertContains(response, "Bewerbungsdatum")
+        self.assertContains(response, "Notizen")
+
+
+    def test_invalid_application_form_does_not_create_application(self):
+        url = reverse("application_create")
+
+        data = {
+            "company_name": "",
+            "job_title": "",
+            "location": "",
+            "status": "planned",
+        }
+
+        response = self.client.post(url, data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(JobApplication.objects.count(), 1)
