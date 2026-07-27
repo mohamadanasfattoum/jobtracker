@@ -69,6 +69,20 @@ Aktuell unterstützt die Anwendung folgende Statuswerte:
 
 ---
 
+## Screenshots
+
+### Bewerbungsübersicht
+
+![Bewerbungsübersicht](docs/screenshots/application-list.png)
+
+### Detailseite
+
+![Detailseite](docs/screenshots/application-detail.png)
+
+### Bewerbungsformular
+
+![Bewerbungsformular](docs/screenshots/application-form.png)
+
 ## Installation
 
 Repository klonen:
