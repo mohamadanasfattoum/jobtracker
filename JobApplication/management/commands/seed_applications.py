@@ -31,16 +31,16 @@ class Command(BaseCommand):
             self.stdout.write(self.style.WARNING("Existing applications deleted."))
 
         companies = [
-            "FERCHAU",
-            "Friedrich-Loeffler-Institut",
-            "Dietrich-Bonhoeffer-Klinikum",
-            "Touris Marketing Service GmbH",
-            "IT Solutions MV",
-            "Nord Software GmbH",
-            "Hanse IT Service",
-            "Digital MV GmbH",
-            "CloudTech Solutions",
-            "Backend Factory GmbH",
+            "NordByte GmbH",
+            "CodeWerk Solutions",
+            "HanseSoft AG",
+            "Baltic IT Services",
+            "PixelForge GmbH",
+            "CloudBridge Solutions",
+            "BackendLab GmbH",
+            "DigitalPilot GmbH",
+            "FutureApps GmbH",
+            "DataNova Systems",
         ]
 
         job_titles = [
